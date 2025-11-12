@@ -1,58 +1,43 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentación Técnica: Alarma Básica Micro:bit</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="Present.css">
 </head>
-<body class="text-gray-800">
 
-     <a href="index.html" class="back-link">
+<body>
+    <a href="index.html" class="back-link">
         ← Volver a la Pagina Principal
     </a>
-
-    <div class="container mx-auto max-w-4xl px-4 py-16">
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-blue-700 mb-2">Documentación Técnica del Proyecto</h1>
-            <p class="text-xl text-gray-600">Alarma Básica Micro:bit</p>
-        </header>
-
-        <!-- 1. Información General del Proyecto -->
-        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4 border-b pb-2">1. Información General del Proyecto</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Campo</th>
-                        <th>Valor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>**Nombre del Proyecto**</td><td>Alarma Básica Micro:bit (para bi-rodados)</td></tr>
-                    <tr><td>**Objetivo Principal**</td><td>Disuadir el hurto y alertar al propietario ante un intento de robo mediante la detección de movimiento.</td></tr>
-                    <tr><td>**Plataforma Principal**</td><td>BBC Micro:bit</td></tr>
-                    <tr><td>**Lenguaje de Programación**</td><td>MicroPython</td></tr>
-                    <tr><td>**Tecnología de Comunicación**</td><td>Radio (Micro:bit a Micro:bit)</td></tr>
-                    <tr><td>**Integrantes**</td><td>Diana Espina, Guillermo Brünner, Marcos Villarreal</td></tr>
-                </tbody>
-            </table>
-        </section>
+    
+    <div class="markdown-content">
+        <h1>Documentación Técnica</h1>
+        <p><em>Fecha: 12 de noviembre de 2025</em></p>
+        <p>Este documento contiene la documentación técnica para el proyecto STEAM del curso <strong>Laboratorio
+                STEAM+</strong> de la tecnicatura <strong>Redes y Software</strong> del <strong>Brazo Oriental</strong> de <strong>UTU</strong> año 2025.</p>
         
-        <!-- 2. Descripción Funcional del Sistema -->
-        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4 border-b pb-2">2. Descripción Funcional del Sistema</h2>
-            <p class="mb-6 text-lg text-gray-700">
-                El sistema opera en un esquema de comunicación de radio de corto alcance utilizando dos unidades Micro:bit:
-            </p>
-            <ul class="list-disc list-inside space-y-2 mb-6 ml-4 text-gray-700">
-                <li>**Micro:bit Alarma (Emisor):** Instalado en la bicicleta o vehículo. Se encarga de detectar el movimiento.</li>
-                <li>**Micro:bit Receptor (Aviso/Base):** Conectado a una PC (inicialmente) para recibir la señal y generar un informe de actividad.</li>
-            </ul>
-
-            <h3 class="text-2xl font-semibold text-gray-800 mb-4">2.1. Modo de Operación</h3>
-            <div class="overflow-x-auto">
+        <h1>Proyecto: Alarma Básica Micro:bit (para bi-rodados)</h1>
+        
+        <h2>1. Integrantes</h2>
+        <ul>
+            <li>Diana Espina</li>
+            <li>Guillermo Brünner</li>
+            <li>Marcos Villarreal</li>
+            <li>[Nombre integrante 4]</li>
+            <li>[Nombre integrante 5]</li>
+        </ul>
+        
+        <h2>2. Descripción Funcional del Sistema</h2>
+        <ul>
+            <li>**Objetivo Principal:** Disuadir el hurto y alertar al propietario ante un intento de robo mediante la detección de movimiento.</li>
+            <li>El sistema opera en un esquema de comunicación de radio de corto alcance utilizando dos unidades Micro:bit:
+                <ul>
+                    <li>**Micro:bit Alarma (Emisor):** Instalado en el vehículo, se encarga de detectar el movimiento brusco (usando el acelerómetro) y activar la alarma sonora y visual (`Image.ANGRY`). Envía la señal de alerta por radio.</li>
+                    <li>**Micro:bit Receptor (Aviso/Base):** Conectado a una PC, recibe la señal por radio. Un script de Python en la PC procesa la señal, registra el evento con fecha y hora, y actualiza una interfaz web para el monitoreo.</li>
+                </ul>
+            </li>
+            <li>**Modos de Operación:**
                 <table>
                     <thead>
                         <tr>
@@ -83,103 +68,88 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </section>
-
-        <!-- 3. Arquitectura del Sistema -->
-        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4 border-b pb-2">3. Arquitectura del Sistema</h2>
-            <p class="mb-6 text-lg text-gray-700">
-                El proyecto sigue una arquitectura de sistema distribuido simple, donde la lógica se reparte entre el dispositivo móvil (Micro:bit Alarma) y la estación de monitoreo (Micro:bit Receptor + PC).
-            </p>
-            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Componentes clave:</h3>
-            <ol class="list-decimal list-inside space-y-2 mb-6 ml-4 text-gray-700">
-                <li>**Micro:bit Alarma:** Captura de datos.</li>
-                <li>**Comunicación Radio:** Transporte de la alerta/estado.</li>
-                <li>**Micro:bit Receptor (Base):** Recepción de datos y puente de comunicación.</li>
-                <li>**PC/Procesador Python:** Lógica de generación de informes y actualización en la interfaz web.</li>
-                <li>**Interfaz Web (HTML/CSS):** Visualización en tiempo real de los eventos.</li>
-            </ol>
-
-            <h3 class="text-2xl font-semibold text-gray-800 mb-4">3.1. Flujo de Datos</h3>
-            <p class="mb-6 text-gray-700">
-                El flujo de información es unidireccional (Micro:bit Alarma $\rightarrow$ Micro:bit Receptor $\rightarrow$ PC $\rightarrow$ Web) para las alertas:
-            </p>
-            <ul class="list-disc list-inside space-y-3 mb-6 ml-4 text-gray-700">
-                <li>**Micro:bit Alarma:** El acelerómetro interno detecta movimiento. Si la fuerza de movimiento total (suma absoluta de los ejes X e Y) supera un `umbral_movimiento` (ej. 1500), se transmite un mensaje por Radio.</li>
-                <li>**Micro:bit Receptor:** Recibe el mensaje de radio. Este Micro:bit, conectado a una PC mediante USB, utiliza un script de Python para leer los datos del puerto serie.</li>
-                <li>**Procesador Python (en PC):** El script en la PC registra el mensaje, asocia la hora del sistema de la PC, y actualiza un archivo o una base de datos temporal (como se insinúa en los avances) que alimenta la interfaz web.</li>
-                <li>**Interfaz Web (HTML):** Un script en el HTML actualiza la vista cada un segundo para mostrar los reportes de actividad y los avisos de inactividad, ofreciendo un registro de eventos con fecha y hora.</li>
-            </ul>
-        </section>
-
-        <!-- 4. Hardware y Componentes -->
-        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4 border-b pb-2">4. Hardware y Componentes</h2>
-            <div class="overflow-x-auto">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Componente</th>
-                            <th>Función en el Proyecto</th>
-                            <th>Ubicación</th>
-                            <th>Observaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>**Micro:bit V2**</td><td>Dispositivo principal de procesamiento y detección.</td><td>Alarma y Receptor</td><td>Se utilizan dos unidades. Incluye acelerómetro, radio y matriz LED.</td></tr>
-                        <tr><td>**Acelerómetro (Integrado)**</td><td>Sensor de movimiento y vibración (Ejes X, Y, Z).</td><td>Micro:bit Alarma</td><td>Detecta la fuerza del movimiento para activar la alarma.</td></tr>
-                        <tr><td>**Matriz LED 5x5 (Integrada)**</td><td>Salida visual para el estado de la alarma (ej. `Image.ANGRY`).</td><td>Micro:bit Alarma</td><td></td></tr>
-                        <tr><td>**Zumbador/Altavoz (Integrado)**</td><td>Salida de audio para la alarma (`music.play`).</td><td>Micro:bit Alarma</td><td>Utilizado para disuadir al ladrón.</td></tr>
-                        <tr><td>**Botón B (Integrado)**</td><td>Entrada de usuario para desactivar el sonido de la alarma.</td><td>Micro:bit Alarma</td><td></td></tr>
-                        <tr><td>**Conexión USB**</td><td>Carga de código y conexión al PC (para el Micro:bit Receptor).</td><td>Ambos Micro:bit</td><td></td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+            </li>
+        </ul>
         
-        <!-- 5. Implementación de Software (MicroPython) -->
-        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4 border-b pb-2">5. Implementación de Software (MicroPython)</h2>
-            <p class="mb-6 text-gray-700">
-                El código se basa en el uso del módulo `microbit` para acceder al hardware.
-            </p>
-            <h3 class="text-2xl font-semibold text-gray-800 mb-3">5.1. Lógica del Micro:bit Alarma</h3>
-            <p class="mb-3 text-gray-700">El script principal se centra en un bucle continuo (`while True`) que comprueba la fuerza de movimiento.</p>
-            <p class="font-semibold text-gray-800 mb-2">Variables Clave:</p>
-            <ul class="list-disc list-inside space-y-1 mb-6 ml-4 text-gray-700">
-                <li>`umbral_movimiento`: Valor de fuerza total que debe superarse para activar la alarma (ej. 1500 a 3000).</li>
-                <li>`fuerza_movimiento`: Suma absoluta de la lectura del acelerómetro en los ejes X e Y (`abs(accelerometer.get_x()) + abs(accelerometer.get_y())`).</li>
-                <li>`alarma_activa`: Booleano para controlar el estado del sonido.</li>
-            </ul>
-
-            <p class="font-semibold text-gray-800 mb-2">Funcionalidades de Radio:</p>
-            <p class="mb-6 text-gray-700">
-                Se requiere el módulo `radio` para la comunicación entre los dos Micro:bits. El código del emisor (Alarma) debe configurarse para enviar mensajes codificados (ej. "ALERTA" o "ACTIVO") cuando el umbral se exceda o cuando se envíe el pulso de inactividad, respectivamente.
-            </p>
+        <h2>3. Materiales y Hardware</h2>
+        <ul>
+            <li>2 x **Micro:bit V2** (Dispositivo principal de procesamiento y detección).</li>
+            <li>**Acelerómetro** integrado en el Micro:bit Alarma (Sensor de movimiento).</li>
+            <li>**Matriz LED 5x5** y **Zumbador/Altavoz** integrados en el Micro:bit Alarma (Salida visual y sonora).</li>
+            <li>**Botón B** en el Micro:bit Alarma (Entrada para desactivación).</li>
+            <li>**Conexión USB** para cargar código y para la conexión serial del Micro:bit Receptor a la PC.</li>
+        </ul>
+        
+        <h2>4. Arquitectura del Sistema</h2>
+        <ul>
+            <li>El proyecto sigue una arquitectura de sistema distribuido simple, repartiendo la lógica entre el dispositivo móvil (Micro:bit Alarma) y la estación de monitoreo (Micro:bit Receptor + PC).</li>
+            <li>**Flujo de Datos para Alerta:**
+                <ol>
+                    <li>**Micro:bit Alarma:** El acelerómetro detecta un movimiento superior a un `umbral_movimiento`.</li>
+                    <li>**Comunicación Radio:** Envío de mensaje codificado (ej. "ALERTA").</li>
+                    <li>**Micro:bit Receptor:** Recepción del mensaje de radio e impresión al puerto serial (USB).</li>
+                    <li>**PC/Procesador Python:** Script en la PC lee el puerto serial, registra el mensaje, asocia la hora del sistema y almacena el evento.</li>
+                    <li>**Interfaz Web (HTML/CSS):** Visualización en tiempo real de los eventos registrados.</li>
+                </ol>
+            </li>
             
-            <h3 class="text-2xl font-semibold text-gray-800 mb-3">5.2. Lógica del Micro:bit Receptor y Python (en PC)</h3>
-            <p class="mb-3 text-gray-700">
-                El Micro:bit Receptor utiliza el módulo `radio` para recibir mensajes. Cuando se recibe un mensaje, lo imprime al puerto serial (USB).
-            </p>
-            <p class="font-semibold text-gray-800 mb-2">El script de Python en la PC debe realizar las siguientes tareas:</p>
-            <ol class="list-decimal list-inside space-y-3 mb-6 ml-4 text-gray-700">
-                <li>Abrir una conexión al puerto serial USB al que está conectado el Micro:bit Receptor.</li>
-                <li>Escuchar continuamente los datos entrantes.</li>
-                <li>Al recibir un mensaje (`ALERTA` o `ACTIVO`):
-                    <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
-                        <li>Registrar la hora y fecha del sistema operativo de la PC.</li>
-                        <li>Almacenar el evento y la hora en un archivo de registro/base de datos local.</li>
-                    </ul>
-                </li>
-                <li>Esta información registrada es la fuente de datos para el reporte en la Interfaz Web.</li>
-            </ol>
-        </section>
-    </div>
-    
-    <footer class="text-center py-6 bg-gray-200 text-gray-600 mt-12">
-        <p>Documentación generada automáticamente basada en el informe del proyecto.</p>
-    </footer>
+        </ul>
+        
+        <h2>5. Diseño Electrónico</h2>
+        <ul>
+            <li>El diseño electrónico se basa principalmente en los componentes integrados de la placa **Micro:bit V2** (Acelerómetro, Radio, Matriz LED, Altavoz).</li>
+            <li>No se requieren componentes externos ni diagramas de cableado complejos, ya que la alarma solo utiliza los recursos a bordo de los Micro:bits.</li>
+            <li>[Incluir diagramas de Tinkercad (o similar) que muestren la simulación del sistema o un diagrama de bloques del flujo de datos].</li>
+        </ul>
+        
+        <h2>6. Diseño Software (MicroPython)</h2>
+        <ul>
+            <li>**Plataforma:** BBC Micro:bit.</li>
+            <li>**Lenguaje:** MicroPython.</li>
+            <li>**Lógica del Micro:bit Alarma (Emisor):**
+                <p>El script utiliza un bucle continuo que calcula la `fuerza_movimiento` (ej. $\sum |\text{ejes X, Y}|$) y la compara con un `umbral_movimiento` (ej. 1500). Si se supera, activa el sonido, la matriz LED (`Image.ANGRY`) y envía un mensaje de radio.</p>
+                <p>La desactivación se maneja mediante la pulsación del **Botón B**, deteniendo la música (`music.stop()`) y el estado visual.</p>
+            </li>
+            <li>**Lógica del Micro:bit Receptor (Aviso):**
+                <p>El script utiliza el módulo `radio` para escuchar mensajes. Al recibir un mensaje, lo imprime al puerto serial para que el script de Python en la PC lo pueda capturar.</p>
+            </li>
+            <li>**Script de Python (en PC):**
+                <p>Debe usar una librería para la comunicación serial (ej. `pyserial`) para leer los datos del Receptor. El script registra la fecha/hora del sistema y almacena el evento para la visualización web.</p>
+            </li>
+            <li>[Incluir código fuente de python (u otro lenguaje) para el emisor, receptor y el script de PC]</li>
+            <pre>
+# Ejemplo simplificado del Micro:bit Alarma (Emisor)
+from microbit import *
+import radio
+import music
 
+radio.on()
+umbral_movimiento = 1500
+
+while True:
+    fuerza_movimiento = abs(accelerometer.get_x()) + abs(accelerometer.get_y())
+    
+    if button_b.was_pressed():
+        music.stop()
+        display.show(Image.HAPPY)
+        radio.send("DESACTIVA")
+        sleep(500)
+    
+    if fuerza_movimiento > umbral_movimiento:
+        display.show(Image.ANGRY)
+        music.play(music.BA_DING)
+        radio.send("ALERTA")
+    else:
+        # Lógica de pulso de inactividad
+        display.show(Image.HEART_SMALL)
+        # radio.send("ACTIVO") # Enviar pulso menos frecuente
+        sleep(500)
+</pre>
+        </ul>
+        
+        <h2>7. Referencias y recursos</h2>
+        <p>BBC Micro:bit Documentation, MicroPython Official Documentation, Librería PySerial, Lenguaje MicroPython.</p>
+    </div>
 </body>
+
 </html>
